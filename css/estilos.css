@@ -1,0 +1,333 @@
+@font-face {
+    font-family: UFO;
+    src: url("SFAlienEncounters.ttf");
+}
+
+body {
+    font-family: UFO;
+    margin: 0;
+}
+
+#fundo {
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+#area_jogo {
+    background: url('../img/back1.jpg');
+    width: 367px;
+    height: 246px;
+}
+
+#player {
+    width: 79px;
+    height: 74px;
+    top: 125px;
+    left: 120px;
+    background-image: url("../img/player_walk.png");
+    position: absolute;
+    z-index: 2;
+
+    animation: p_player .9s steps(8) infinite;
+    -webkit-animation: p_player .9s steps(8) infinite;
+    -moz-animation: p_player .9s steps(8) infinite;
+    -ms-animation: p_player .9s steps(8) infinite;
+    -o-animation: p_player .9s steps(8) infinite;
+}
+
+@keyframes p_player {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -634px;
+    }
+}
+
+@-webkit-keyframes p_player {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -634px;
+    }
+}
+
+@-moz-keyframes p_player {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -634px;
+    }
+}
+
+@-ms-keyframes p_player {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -634px;
+    }
+}
+
+@-o-keyframes p_player {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -634px;
+    }
+}
+
+#player_attack {
+    width: 85px;
+    height: 74px;
+    top: 125px;
+    left: 120px;
+    background-image: url("../img/player_attack.png");
+    position: absolute;
+    z-index: 2;
+
+    animation: p_player_attack .4s steps(5) infinite;
+    -webkit-animation: p_player_attack .4s steps(5) infinite;
+    -moz-animation: p_player_attack .4s steps(5) infinite;
+    -ms-animation: p_player_attack .4s steps(5) infinite;
+    -o-animation: p_player_attack .4s steps(5) infinite;
+}
+
+@keyframes p_player_attack {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -380px;
+    }
+}
+
+@-webkit-keyframes p_player_attack {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -380px;
+    }
+}
+
+@-moz-keyframes p_player_attack {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -380px;
+    }
+}
+
+@-ms-keyframes p_player_attack {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -380px;
+    }
+}
+
+@-o-keyframes p_player_attack {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -380px;
+    }
+}
+
+
+
+#enemy {
+    width: 79px;
+    height: 74px;
+    top: 125px;
+    left: 0px;
+    background-image: url("../img/enemy1_walk.png");
+    position: absolute;
+    z-index: 2;
+
+    animation: p_enemy .9s steps(8) infinite;
+    -webkit-animation: p_enemy .9s steps(8) infinite;
+    -moz-animation: p_enemy .9s steps(8) infinite;
+    -ms-animation: p_enemy .9s steps(8) infinite;
+    -o-animation: p_enemy .9s steps(8) infinite;
+}
+
+@keyframes p_enemy {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -634px;
+    }
+}
+
+@-webkit-keyframes p_enemy {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -634px;
+    }
+}
+
+@-moz-keyframes p_enemy {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -634px;
+    }
+}
+
+@-ms-keyframes p_enemy {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -634px;
+    }
+}
+
+@-o-keyframes p_enemy {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -634px;
+    }
+}
+
+#enemy_attack {
+    width: 75px;
+    height: 74px;
+    top: 125px;
+    left: 0px;
+    background-image: url("../img/enemy_attack.png");
+    position: absolute;
+    z-index: 2;
+
+    animation: p_enemy_attack .4s steps(6) infinite;
+    -webkit-animation: p_enemy_attack .4s steps(6) infinite;
+    -moz-animation: p_enemy_attack .4s steps(6) infinite;
+    -ms-animation: p_enemy_attack .4s steps(6) infinite;
+    -o-animation: p_enemy_attack .4s steps(6) infinite;
+}
+
+@keyframes p_enemy_attack {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -455px;
+    }
+}
+
+@-webkit-keyframes p_enemy_attack {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -455px;
+    }
+}
+
+@-moz-keyframes p_enemy_attack {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -455px;
+    }
+}
+
+@-ms-keyframes p_enemy_attack {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -455px;
+    }
+}
+
+@-o-keyframes p_enemy_attack {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -455px;
+    }
+}
+
+
+
+#enemy_hurt {
+    width: 85px;
+    height: 74px;
+    top: 125px;
+    left: 0px;
+    background-image: url("../img/enemy_hurt.png");
+    position: absolute;
+    z-index: 2;
+
+    animation: p_enemy_hurt .8s steps(2) infinite;
+    -webkit-animation: p_enemy_hurt .8s steps(2) infinite;
+    -moz-animation: p_enemy_hurt .8s steps(2) infinite;
+    -ms-animation: p_enemy_hurt .8s steps(2) infinite;
+    -o-animation: p_enemy_hurt .8s steps(2) infinite;
+}
+
+@keyframes p_enemy_hurt {
+    from {
+        background-position: 85px;
+    }
+    to {
+        background-position: -256px;
+    }
+}
+
+@-webkit-keyframes p_enemy_hurt {
+    from {
+        background-position: 85px;
+    }
+    to {
+        background-position: -256px;
+    }
+}
+
+@-moz-keyframes p_enemy_hurt {
+    from {
+        background-position: 85px;
+    }
+    to {
+        background-position: -256px;
+    }
+}
+
+@-ms-keyframes p_enemy_hurt {
+    from {
+        background-position: 85px;
+    }
+    to {
+        background-position: -256px;
+    }
+}
+
+@-o-keyframes p_enemy_hurt {
+    from {
+        background-position: 85px;
+    }
+    to {
+        background-position: -256px;
+    }
+}
+
+
+
