@@ -1,5 +1,5 @@
 let isPlayerMirrored = false;
-let stopMovingLeft = false;
+let stopMoving = {};
 
 let killCount = 0
 
@@ -13,7 +13,7 @@ const KEYS = {
     SPACE: 32
 }
 
-const GAMEWIDTH = 367
+const GAMEWIDTH = 735
 const GAMEHEIGHT = 110
 
 const PLAYERWIDTH = 79
@@ -86,7 +86,7 @@ function movePlayer() {
         $('#player').css('top', playerTop)
     }
     if (game.pressed[KEYS.A]) {
-        if (stopMovingLeft){
+        if (stopMoving.left){
             return
         }
         if (position >= 0) {
@@ -137,7 +137,7 @@ setInterval(
 
 
 function createEnemies(){
-    createNewEnemy(enemyId)
+    createNewEnemy()
 }
 
 setInterval(
@@ -147,7 +147,7 @@ setInterval(
 
 function start() {
     createNewPlayer()
-    createNewEnemy(enemyId)
+    createNewEnemy()
 }
 
 function createNewPlayer() {
@@ -156,7 +156,7 @@ function createNewPlayer() {
 }
 
 function attack() {
-    stopMovingLeft = true
+    stopMoving.left = true;
     let playerLeft = parseInt($('#player').css('left'));
     let playerRight = parseInt($('#player').css('right'));
     let attackDirection = isPlayerMirrored ? -1 : 1; 
@@ -174,11 +174,11 @@ function attack() {
         $('#player').css("left", playerLeft);
         $('#player').css("right", playerRight);
         $('#player').css('transform', 'scaleX(' + attackDirection + ')');
-        stopMovingLeft = false
+        stopMoving.left = false
     }, 500);
 }
 
-function createNewEnemy(id) {
+function createNewEnemy() {
     let enemys = $('.enemy')
     for (let i = 0; i < enemys.length; i++){
         let enemy = $(enemys[i]);
@@ -194,20 +194,19 @@ function createNewEnemy(id) {
 }
 
 function moveEnemy() {
-    if (stopMovingLeft){
-        return
-    }
-    let enemys = $('.enemy')
+    let enemys = $('.enemy');
     for (let i = 0; i < enemys.length; i++){
         let enemy = $(enemys[i]);
-        let enemyLeft = parseInt(enemy.css('left'))
-        enemyLeft += 1
-        if (enemyLeft >= GAMEWIDTH - PLAYERWIDTH) {
-            createNewEnemy(enemyId)
-            enemyLeft = 20
-            return
+        let enemyLeft = parseInt(enemy.css('left'));
+        if (!stopMoving[enemy.attr('id')]) {
+            enemyLeft += 1;
+            if (enemyLeft >= GAMEWIDTH - PLAYERWIDTH) {
+                createNewEnemy();
+                enemyLeft = 20;
+                return;
+            }
+            enemy.css('left', enemyLeft);
         }
-        enemy.css('left', enemyLeft)
     }
 }
 
@@ -223,9 +222,12 @@ function checkCollision() {
             if (player_attack.collision(enemy).length) {
                 hurtEnemy(enemys[i].id)
             }
-            stopMovingLeft = true
+            stopMoving.left = true;
+            stopMoving[enemy.attr('id')] = true;
+            return; 
         } else {
-            stopMovingLeft = false
+            stopMoving.left = false;
+            stopMoving[enemy.attr('id')] = false;
         }
     }
     
@@ -235,35 +237,36 @@ function hurtEnemy(id) {
     enemy = $(`#${id}`)
     let enemyLeft = parseInt(enemy.css('left'));
     let enemyRight = parseInt(enemy.css('right'));
-    
+
     let enemyLife = enemy.data('enemyLife');
     enemyLife -= 1;
     
 
     enemy.remove();
-    $('#area_jogo').append('<div id="enemy_hurt"></div>');
-    $('#enemy_hurt').css("left", enemyLeft);
-    $('#enemy_hurt').css("right", enemyRight);
+    $('#area_jogo').append(`<div id="${id}_hurt" class="enemy_hurt"></div>`);
+    $(`#${id}_hurt`).css("left", enemyLeft);
+    $(`#${id}_hurt`).css("right", enemyRight);
 
 
     
 
 
     setTimeout(function() {
-        $('#enemy_hurt').remove();
-        enemy.data('enemyLife', enemyLife);
-        $('#area_jogo').append(enemy);
-        enemy.css("left", enemyLeft);
-        enemy.css("right", enemyRight);
+        
         if (enemyLife <= 0){
             killEnemy(id)
             return
-        }        
+        }    
+        $(`#${id}_hurt`).remove();
+        enemy.data('enemyLife', enemyLife);
+        $('#area_jogo').append(enemy);
+        enemy.css("left", enemyLeft);
+        enemy.css("right", enemyRight);    
     }, 800);
 }
 
 function killEnemy(id) {
-    enemy = $(`#${id}`)
+    enemy = $(`#${id}_hurt`)
     let enemyLeft = parseInt(enemy.css('left'));
     let enemyRight = parseInt(enemy.css('right'));
     
@@ -272,14 +275,14 @@ function killEnemy(id) {
     
 
     enemy.remove();
-    $('#area_jogo').append('<div id="enemy_death"></div>');
-    $('#enemy_death').css("left", enemyLeft);
-    $('#enemy_death').css("right", enemyRight);
+    $('#area_jogo').append(`<div id="${id}_death" class="enemy_death"></div>`);
+    $(`#${id}_death`).css("left", enemyLeft);
+    $(`#${id}_death`).css("right", enemyRight);
     updateKillCount()
 
 
     setTimeout(function() {
-        $('#enemy_death').remove();
+        $(`#${id}_death`).remove();
     }, 800);
 }
 

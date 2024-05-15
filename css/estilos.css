@@ -16,7 +16,7 @@ body {
 
 #area_jogo {
     background: url('../img/back1.jpg');
-    width: 367px;
+    width: 735px;
     height: 246px;
 }
 
@@ -268,7 +268,7 @@ body {
 
 
 
-#enemy_hurt {
+.enemy_hurt {
     width: 85px;
     height: 74px;
     top: 125px;
@@ -331,7 +331,7 @@ body {
 
 
 
-#enemy_death {
+.enemy_death {
     width: 85px;
     height: 74px;
     top: 125px;
