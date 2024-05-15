@@ -144,7 +144,7 @@ body {
 
 
 
-#enemy {
+.enemy {
     width: 79px;
     height: 74px;
     top: 125px;
@@ -323,6 +323,69 @@ body {
 @-o-keyframes p_enemy_hurt {
     from {
         background-position: 85px;
+    }
+    to {
+        background-position: -256px;
+    }
+}
+
+
+
+#enemy_death {
+    width: 85px;
+    height: 74px;
+    top: 125px;
+    left: 0px;
+    background-image: url("../img/enemy_death.png");
+    position: absolute;
+    z-index: 2;
+
+    animation: p_enemy_death .8s steps(3) infinite;
+    -webkit-animation: p_enemy_death .8s steps(3) infinite;
+    -moz-animation: p_enemy_death .8s steps(3) infinite;
+    -ms-animation: p_enemy_death .8s steps(3) infinite;
+    -o-animation: p_enemy_death .8s steps(3) infinite;
+}
+
+@keyframes p_enemy_death {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -256px;
+    }
+}
+
+@-webkit-keyframes p_enemy_death {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -256px;
+    }
+}
+
+@-moz-keyframes p_enemy_death {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -256px;
+    }
+}
+
+@-ms-keyframes p_enemy_death {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -256px;
+    }
+}
+
+@-o-keyframes p_enemy_death {
+    from {
+        background-position: 0px;
     }
     to {
         background-position: -256px;

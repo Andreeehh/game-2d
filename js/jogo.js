@@ -1,7 +1,9 @@
 let isPlayerMirrored = false;
 let stopMovingLeft = false;
 
-let enemyLife = 4;
+let killCount = 0
+
+let enemyId = 0;
 
 const KEYS = {
     W: 87,
@@ -125,7 +127,7 @@ function movePlayer() {
 function loop(){
     movePlayer()
     moveEnemy()
-    checkCollision()
+    checkCollision() 
 }
 
 setInterval(
@@ -133,9 +135,19 @@ setInterval(
     30
 )
 
+
+function createEnemies(){
+    createNewEnemy(enemyId)
+}
+
+setInterval(
+    createEnemies,
+    5000
+)
+
 function start() {
     createNewPlayer()
-    createNewEnemy()
+    createNewEnemy(enemyId)
 }
 
 function createNewPlayer() {
@@ -166,63 +178,114 @@ function attack() {
     }, 500);
 }
 
-function createNewEnemy() {
-    $('#enemy').remove()
-    $('#area_jogo').append('<div id="enemy"></div>')
+function createNewEnemy(id) {
+    let enemys = $('.enemy')
+    for (let i = 0; i < enemys.length; i++){
+        let enemy = $(enemys[i]);
+        let enemyLeft = parseInt(enemy.css('left'))
+        if (enemyLeft <= 100) {
+            return
+        }
+    }
+    enemyId += 1
+    var newEnemy = $(`<div id="${enemyId}" class="enemy"></div>`);
+    newEnemy.data('enemyLife', 4); 
+    $('#area_jogo').append(newEnemy);
 }
 
 function moveEnemy() {
     if (stopMovingLeft){
         return
     }
-    let enemyLeft = parseInt($('#enemy').css('left'))
-    enemyLeft += 1
-    if (enemyLeft >= GAMEWIDTH - PLAYERWIDTH) {
-        // createNewEnemy()
-        // enemyLeft = 20
-        return
+    let enemys = $('.enemy')
+    for (let i = 0; i < enemys.length; i++){
+        let enemy = $(enemys[i]);
+        let enemyLeft = parseInt(enemy.css('left'))
+        enemyLeft += 1
+        if (enemyLeft >= GAMEWIDTH - PLAYERWIDTH) {
+            createNewEnemy(enemyId)
+            enemyLeft = 20
+            return
+        }
+        enemy.css('left', enemyLeft)
     }
-    $('#enemy').css('left', enemyLeft)
 }
 
 function checkCollision() {
-    const enemy = $('#enemy')
+    const enemys = $('.enemy')
     const enemyHurt = $('#enemy_hurt')
     const player = $('#player')
     const player_attack = $('#player_attack')
 
-    if (player.collision(enemy).length || player_attack.collision(enemy).length || player_attack.collision(enemyHurt).length ) {
-        if (player_attack.collision(enemy).length) {
-            hurtEnemy()
+    for (let i = 0; i < enemys.length; i++){
+        let enemy = $(enemys[i]);
+        if (player.collision(enemy).length || player_attack.collision(enemy).length || player_attack.collision(enemyHurt).length ) {
+            if (player_attack.collision(enemy).length) {
+                hurtEnemy(enemys[i].id)
+            }
+            stopMovingLeft = true
+        } else {
+            stopMovingLeft = false
         }
-        stopMovingLeft = true
-    } else {
-        stopMovingLeft = false
     }
+    
 }
 
-function hurtEnemy() {
-    let enemyLeft = parseInt($('#enemy').css('left'));
-    let enemyRight = parseInt($('#enemy').css('right'));
+function hurtEnemy(id) {
+    enemy = $(`#${id}`)
+    let enemyLeft = parseInt(enemy.css('left'));
+    let enemyRight = parseInt(enemy.css('right'));
+    
+    let enemyLife = enemy.data('enemyLife');
+    enemyLife -= 1;
+    
 
-    $('#enemy').remove();
+    enemy.remove();
     $('#area_jogo').append('<div id="enemy_hurt"></div>');
     $('#enemy_hurt').css("left", enemyLeft);
     $('#enemy_hurt').css("right", enemyRight);
-    enemyLife -= 1
+
+
+    
 
 
     setTimeout(function() {
         $('#enemy_hurt').remove();
-        $('#area_jogo').append('<div id="enemy"></div>');
+        enemy.data('enemyLife', enemyLife);
+        $('#area_jogo').append(enemy);
+        enemy.css("left", enemyLeft);
+        enemy.css("right", enemyRight);
         if (enemyLife <= 0){
-            //TODO KILL ENEMY CSS AND FUNCTION
-            killEnemy()
+            killEnemy(id)
             return
-        }
-        $('#enemy').css("left", enemyLeft);
-        $('#enemy').css("right", enemyRight);
+        }        
     }, 800);
+}
+
+function killEnemy(id) {
+    enemy = $(`#${id}`)
+    let enemyLeft = parseInt(enemy.css('left'));
+    let enemyRight = parseInt(enemy.css('right'));
+    
+    let enemyLife = enemy.data('enemyLife');
+    enemyLife -= 1;
+    
+
+    enemy.remove();
+    $('#area_jogo').append('<div id="enemy_death"></div>');
+    $('#enemy_death').css("left", enemyLeft);
+    $('#enemy_death').css("right", enemyRight);
+    updateKillCount()
+
+
+    setTimeout(function() {
+        $('#enemy_death').remove();
+    }, 800);
+}
+
+function updateKillCount() {
+    killCount += 1
+    $('#kill_count').text('Kills: ' + killCount);
 }
 
 
