@@ -15,9 +15,16 @@ body {
 }
 
 #area_jogo {
-    background: url('../img/back1.jpg');
     width: 735px;
     height: 246px;
+    opacity: 0;
+}
+
+#life {
+    background: url('../img/lifebar.png');
+    width: 480px;
+    height: 40px;
+
 }
 
 #player {
@@ -148,10 +155,11 @@ body {
     width: 79px;
     height: 74px;
     top: 125px;
-    left: 0px;
+    left: 670px;
     background-image: url("../img/enemy1_walk.png");
     position: absolute;
     z-index: 2;
+    transform: scaleX(-1);
 
     animation: p_enemy .9s steps(8) infinite;
     -webkit-animation: p_enemy .9s steps(8) infinite;
@@ -205,20 +213,20 @@ body {
     }
 }
 
-#enemy_attack {
+.enemy_attack {
     width: 75px;
     height: 74px;
     top: 125px;
-    left: 0px;
     background-image: url("../img/enemy_attack.png");
     position: absolute;
     z-index: 2;
+    transform: scaleX(-1);
 
-    animation: p_enemy_attack .4s steps(6) infinite;
-    -webkit-animation: p_enemy_attack .4s steps(6) infinite;
-    -moz-animation: p_enemy_attack .4s steps(6) infinite;
-    -ms-animation: p_enemy_attack .4s steps(6) infinite;
-    -o-animation: p_enemy_attack .4s steps(6) infinite;
+    animation: p_enemy_attack .8s steps(6) infinite;
+    -webkit-animation: p_enemy_attack .8s steps(6) infinite;
+    -moz-animation: p_enemy_attack .8s steps(6) infinite;
+    -ms-animation: p_enemy_attack .8s steps(6) infinite;
+    -o-animation: p_enemy_attack .8s steps(6) infinite;
 }
 
 @keyframes p_enemy_attack {
@@ -272,16 +280,16 @@ body {
     width: 85px;
     height: 74px;
     top: 125px;
-    left: 0px;
     background-image: url("../img/enemy_hurt.png");
     position: absolute;
     z-index: 2;
+    transform: scaleX(-1);
 
     animation: p_enemy_hurt .8s steps(2) infinite;
     -webkit-animation: p_enemy_hurt .8s steps(2) infinite;
     -moz-animation: p_enemy_hurt .8s steps(2) infinite;
     -ms-animation: p_enemy_hurt .8s steps(2) infinite;
-    -o-animation: p_enemy_hurt .8s steps(2) infinite;
+    -o-animation: p_enemy_hurt .8s steps(2) infinite;    
 }
 
 @keyframes p_enemy_hurt {
@@ -335,10 +343,10 @@ body {
     width: 85px;
     height: 74px;
     top: 125px;
-    left: 0px;
     background-image: url("../img/enemy_death.png");
     position: absolute;
     z-index: 2;
+    transform: scaleX(-1);
 
     animation: p_enemy_death .8s steps(3) infinite;
     -webkit-animation: p_enemy_death .8s steps(3) infinite;
@@ -393,4 +401,186 @@ body {
 }
 
 
+#girl {
+    width: 79px;
+    height: 76px;
+    top: 125px;
+    left: 0px;
+    background-image: url("../img/girl.png");
+    position: absolute;
+    z-index: 2;
+
+    animation: p_girl .9s steps(5) infinite;
+    -webkit-animation: p_girl .9s steps(5) infinite;
+    -moz-animation: p_girl .9s steps(5) infinite;
+    -ms-animation: p_girl .9s steps(5) infinite;
+    -o-animation: p_girl .9s steps(5) infinite;
+}
+
+@keyframes p_girl {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -393px;
+    }
+}
+
+@-webkit-keyframes p_girl {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -393px;
+    }
+}
+
+@-moz-keyframes p_girl {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -393px;
+    }
+}
+
+@-ms-keyframes p_girl {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -393px;
+    }
+}
+
+@-o-keyframes p_girl {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -393px;
+    }
+}
+
+#girl_hurt {
+    width: 79px;
+    height: 76px;
+    top: 125px;
+    background-image: url("../img/girl_hurt.png");
+    position: absolute;
+    z-index: 2;
+
+    animation: p_girl_hurt .8s steps(2) infinite;
+    -webkit-animation: p_girl_hurt .8s steps(2) infinite;
+    -moz-animation: p_girl_hurt .8s steps(2) infinite;
+    -ms-animation: p_girl_hurt .8s steps(2) infinite;
+    -o-animation: p_girl_hurt .8s steps(2) infinite;    
+}
+
+@keyframes p_girl_hurt {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -154px;
+    }
+}
+
+@-webkit-keyframes p_girl_hurt {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -154px;
+    }
+}
+
+@-moz-keyframes p_girl_hurt {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -154px;
+    }
+}
+
+@-ms-keyframes p_girl_hurt {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -154px;
+    }
+}
+
+@-o-keyframes p_girl_hurt {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -154px;
+    }
+}
+
+
+
+#girl_death {
+    width: 79px;
+    height: 76px;
+    top: 125px;
+    background-image: url("../img/girl_death.png");
+    position: absolute;
+    z-index: 2;
+
+    animation: p_girl_death .8s steps(5) infinite;
+    -webkit-animation: p_girl_death .8s steps(5) infinite;
+    -moz-animation: p_girl_death .8s steps(5) infinite;
+    -ms-animation: p_girl_death .8s steps(5) infinite;
+    -o-animation: p_girl_death .8s steps(5) infinite;
+}
+
+@keyframes p_girl_death {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -387px;
+    }
+}
+
+@-webkit-keyframes p_girl_death {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -387px;
+    }
+}
+
+@-moz-keyframes p_girl_death {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -387px;
+    }
+}
+
+@-ms-keyframes p_girl_death {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -387px;
+    }
+}
+
+@-o-keyframes p_girl_death {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: -387px;
+    }
+}
 
