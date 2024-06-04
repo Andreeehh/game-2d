@@ -1,5 +1,10 @@
 let isPlayerMirrored = false;
 let stopMoving = {};
+stopAttacking = false
+var attackSound = $("#attackSound")[0];		
+var girlScream = $("#girlScream")[0];		
+var zombieSound = $("#zombieSound")[0];		
+var zombieScream = $("#zombieScream")[0];	
 
 let killCount = 0
 
@@ -9,7 +14,7 @@ let girlLife = 4;
 
 let gameLevel = 1;
 
-let stopGame = false
+let stopGame = true
 
 const KEYS = {
     W: 87,
@@ -18,6 +23,10 @@ const KEYS = {
     D: 68,
     SPACE: 32
 }
+
+
+
+
 
 const GAMEWIDTH = 735
 const GAMEHEIGHT = 110
@@ -31,6 +40,9 @@ let game = {
 
 $(document).keydown(function(e) {
     if (e.which == KEYS.SPACE) {
+        if (stopAttacking) {
+            return
+        }
         attack()
         return
     }
@@ -113,19 +125,7 @@ function movePlayer() {
     }
 }
 
-function loop(){
-    if (stopGame) {
-        return
-    }
-    movePlayer()
-    moveEnemy()
-    checkCollision() 
-}
 
-setInterval(
-    loop,
-    40
-)
 
 
 function createEnemies(){
@@ -135,20 +135,29 @@ function createEnemies(){
     createNewEnemy()
 }
 
-setInterval(
-    createEnemies,
-    5000
-)
+function loop(){
+    if (stopGame) {
+        return
+    }
+    zombieSound.addEventListener("ended", function(){ zombieSound.currentTime = 0; zombieSound.play(); }, false);
+    zombieSound.play();
+    
+    movePlayer()
+    moveEnemy()
+    checkCollision() 
+}
+
+
+
 
 function start() {
     $('#area_jogo').empty();
-    let url = `../img/back${gameLevel}.jpg`
+    let url = `./img/back${gameLevel}.jpg`
     $('#area_jogo').css("background", `url('${url}')`)
     $('#area_jogo').animate({
         opacity: 1
     }, 4000, function() {
-        stopGame = false
-        
+        stopGame = false	
         $('#area_jogo').append("<div id='life'></div>")
         $('#area_jogo').append("<div id='kill_count'>Kills: 0</div>")
         girlLife = 4
@@ -156,7 +165,16 @@ function start() {
         createNewEnemy()
         $('#area_jogo').append('<div id="girl"></div>');
     });
+
+    setInterval(
+        createEnemies,
+        5000
+    )
     
+    setInterval(
+        loop,
+        40
+    )
 }
 
 function createNewPlayer() {
@@ -166,6 +184,9 @@ function createNewPlayer() {
 
 function attack() {
     stopMoving.left = true;
+    stopAttacking = true
+    attackSound.currentTime = 0.4
+    attackSound.play()
     let playerLeft = parseInt($('#player').css('left'));
     let playerTop = parseInt($('#player').css('top'));
     let attackDirection = isPlayerMirrored ? -1 : 1; 
@@ -184,6 +205,8 @@ function attack() {
         $('#player').css("top", playerTop);
         $('#player').css('transform', 'scaleX(' + attackDirection + ')');
         stopMoving.left = false
+        stopAttacking = false
+        attackSound.pause()
     }, 500);
 }
 
@@ -249,8 +272,8 @@ function hurtEnemy(id) {
     let enemyLife = enemy.data('enemyLife');
     enemyLife -= 1;
 
-    
-
+    zombieScream.currentTime = 0
+    zombieScream.play()
     enemy.remove();
     $('#area_jogo').append(`<div id="${id}_hurt" class="enemy_hurt"></div>`);
     let enemyHurt = $(`#${id}_hurt`)
@@ -340,6 +363,8 @@ function attackEnemy(id) {
 function hurtGirl() {
     girlLife -= 1
     let backgroundTo = 0;
+    girlScream.currentTime = 0
+    girlScream.play()
     switch (girlLife) {
         case 3: {
             backgroundTo = -75
@@ -360,7 +385,9 @@ function hurtGirl() {
     }
     if (girlLife == 0) {
         alert("game-over")
+        gameLevel = 1
         start()
+        return
     }
     $('#life').css('background-position', `0 ${backgroundTo}px`);
     $('#girl').remove();
@@ -372,4 +399,7 @@ function hurtGirl() {
 }
 
 
-start()
+function startGame() {
+    $('#start').hide();
+    start();
+}

@@ -5,11 +5,22 @@
 		<link  rel="stylesheet" href="css/estilos.css">  
 	</head>
 	<body>
+		
 		<div id="fundo">
-			<div id='area_jogo' class='area_jogo'>
+			<div id='start' onclick="startGame()" >
+				<h1>Salve a princesa</h1>
+				<p>Utilize as setas para se movimentar e a 
+				<b>Barra</b> para atacar</p>
+				<h2>Clique aqui para iniciar</h2>
+			</div>
+			<div id='area_jogo' class='area_jogo' >
 			</div>
 		</div>
 		
+		<audio src="sons/attack.mp3" preload="auto" id="attackSound"></audio>
+		<audio src="sons/girl-scream.mp3" preload="auto" id="girlScream"></audio>
+		<audio src="sons/zombie.mp3" preload="auto" id="zombieSound"></audio>
+		<audio src="sons/zombie-screaming.mp3" preload="auto" id="zombieScream"></audio>
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/jquery-collision.min.js"></script>
 		<script src="js/jogo.js"></script>
